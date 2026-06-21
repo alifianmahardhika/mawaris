@@ -26,73 +26,63 @@ export default function App() {
 
       {/* Header */}
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-          {/* Brand */}
-          <div className="flex items-center gap-3 shrink-0">
-            <span className="text-2xl">⚖️</span>
-            <div>
-              <h1 className="text-base font-bold text-gray-800 dark:text-gray-100 leading-tight">
-                Kalkulator Warisan Islam
-              </h1>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Faraidh / Mawaris — Madzhab Syafi'i</p>
+        <div className="max-w-5xl mx-auto px-4">
+          {/* Row 1: Brand + Controls */}
+          <div className="flex items-center justify-between py-2.5 gap-2">
+            {/* Brand */}
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-xl shrink-0">⚖️</span>
+              <div className="min-w-0">
+                <h1 className="text-sm font-bold text-gray-800 dark:text-gray-100 leading-tight truncate">
+                  Kalkulator Warisan Islam
+                </h1>
+                <p className="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">Faraidh / Mawaris — Madzhab Syafi'i</p>
+              </div>
+            </div>
+
+            {/* Controls */}
+            <div className="flex items-center gap-2 shrink-0">
+              {page === 'calculator' && (
+                <button
+                  type="button"
+                  onClick={reset}
+                  className="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 border border-gray-200 dark:border-gray-700 rounded px-2 py-1 transition-colors"
+                >
+                  Reset
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={toggleDark}
+                aria-label={dark ? 'Mode terang' : 'Mode malam'}
+                className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-base"
+              >
+                {dark ? '☀️' : '🌙'}
+              </button>
             </div>
           </div>
 
-          {/* Nav tabs */}
-          <nav className="flex gap-1 flex-1 justify-center max-w-sm">
-            <button
-              onClick={() => setPage('calculator')}
-              className={`flex-1 px-2 py-1.5 text-xs font-medium rounded-lg transition-colors ${
-                page === 'calculator'
-                  ? 'bg-emerald-600 text-white'
-                  : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
-            >
-              🧮 Kalkulator
-            </button>
-            <button
-              onClick={() => setPage('flow')}
-              className={`flex-1 px-2 py-1.5 text-xs font-medium rounded-lg transition-colors ${
-                page === 'flow'
-                  ? 'bg-emerald-600 text-white'
-                  : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
-            >
-              📐 Metode
-            </button>
-            <button
-              onClick={() => setPage('glossary')}
-              className={`flex-1 px-2 py-1.5 text-xs font-medium rounded-lg transition-colors ${
-                page === 'glossary'
-                  ? 'bg-emerald-600 text-white'
-                  : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
-            >
-              📖 Istilah
-            </button>
-          </nav>
-
-          {/* Controls */}
-          <div className="flex items-center gap-2 shrink-0">
-            {page === 'calculator' && (
+          {/* Row 2: Nav tabs — full width */}
+          <nav className="flex border-t border-gray-100 dark:border-gray-800">
+            {([
+              { id: 'calculator', icon: '🧮', label: 'Kalkulator' },
+              { id: 'flow',       icon: '📐', label: 'Metode' },
+              { id: 'glossary',   icon: '📖', label: 'Istilah' },
+            ] as const).map(({ id, icon, label }) => (
               <button
-                type="button"
-                onClick={reset}
-                className="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 border border-gray-200 dark:border-gray-700 rounded px-2 py-1 transition-colors"
+                key={id}
+                onClick={() => setPage(id)}
+                className={`flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-medium border-b-2 transition-colors ${
+                  page === id
+                    ? 'border-emerald-600 text-emerald-700 dark:text-emerald-400'
+                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-600'
+                }`}
               >
-                Reset
+                <span>{icon}</span>
+                <span>{label}</span>
               </button>
-            )}
-            {/* Dark mode toggle */}
-            <button
-              type="button"
-              onClick={toggleDark}
-              aria-label={dark ? 'Mode terang' : 'Mode malam'}
-              className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-base"
-            >
-              {dark ? '☀️' : '🌙'}
-            </button>
-          </div>
+            ))}
+          </nav>
         </div>
       </header>
 
