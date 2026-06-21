@@ -6,8 +6,9 @@ import { EstateInputs } from './components/EstateInputs';
 import { SharedChildrenInput } from './components/SharedChildrenInput';
 import { ResultColumn } from './components/ResultColumn';
 import { CalculationFlowPage } from './pages/CalculationFlowPage';
+import { GlossaryPage } from './pages/GlossaryPage';
 
-type Page = 'calculator' | 'flow';
+type Page = 'calculator' | 'flow' | 'glossary';
 
 export default function App() {
   const [page, setPage] = useState<Page>('calculator');
@@ -38,10 +39,10 @@ export default function App() {
           </div>
 
           {/* Nav tabs */}
-          <nav className="flex gap-1 flex-1 justify-center max-w-xs">
+          <nav className="flex gap-1 flex-1 justify-center max-w-sm">
             <button
               onClick={() => setPage('calculator')}
-              className={`flex-1 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
+              className={`flex-1 px-2 py-1.5 text-xs font-medium rounded-lg transition-colors ${
                 page === 'calculator'
                   ? 'bg-emerald-600 text-white'
                   : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
@@ -51,13 +52,23 @@ export default function App() {
             </button>
             <button
               onClick={() => setPage('flow')}
-              className={`flex-1 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
+              className={`flex-1 px-2 py-1.5 text-xs font-medium rounded-lg transition-colors ${
                 page === 'flow'
                   ? 'bg-emerald-600 text-white'
                   : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
               }`}
             >
               📐 Metode
+            </button>
+            <button
+              onClick={() => setPage('glossary')}
+              className={`flex-1 px-2 py-1.5 text-xs font-medium rounded-lg transition-colors ${
+                page === 'glossary'
+                  ? 'bg-emerald-600 text-white'
+                  : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+            >
+              📖 Istilah
             </button>
           </nav>
 
@@ -98,7 +109,13 @@ export default function App() {
                 onClick={() => setPage('flow')}
                 className="underline hover:no-underline font-medium"
               >
-                Pelajari metode perhitungan →
+                Pelajari metode →
+              </button>{' '}
+              <button
+                onClick={() => setPage('glossary')}
+                className="underline hover:no-underline font-medium"
+              >
+                Lihat glosarium →
               </button>
             </div>
 
@@ -138,8 +155,10 @@ export default function App() {
               </p>
             </footer>
           </div>
-        ) : (
+        ) : page === 'flow' ? (
           <CalculationFlowPage />
+        ) : (
+          <GlossaryPage />
         )}
       </main>
     </div>
