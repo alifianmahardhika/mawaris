@@ -10,29 +10,26 @@ export function ScenarioSummary({ result }: Props) {
 
   return (
     <div className="space-y-2 mb-3">
-      {/* Asal masalah */}
-      <div className="flex items-center gap-2 text-xs text-gray-500">
+      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
         <span className="font-medium">Asal masalah:</span>
         {adjustment === 'aul' ? (
           <span>
-            <span className="line-through text-gray-400">{asalMasalahAsli}</span>
-            <span className="ml-1 text-orange-600 font-semibold">{asalMasalah}</span>
-            <span className="ml-1 text-orange-600">(naik karena ʿaul)</span>
+            <span className="line-through text-gray-400 dark:text-gray-600">{asalMasalahAsli}</span>
+            <span className="ml-1 text-orange-600 dark:text-orange-400 font-semibold">{asalMasalah}</span>
+            <span className="ml-1 text-orange-600 dark:text-orange-400">(naik karena ʿaul)</span>
           </span>
         ) : (
-          <span className="font-semibold text-gray-700">{asalMasalah}</span>
+          <span className="font-semibold text-gray-700 dark:text-gray-200">{asalMasalah}</span>
         )}
       </div>
 
-      {/* Total harta */}
-      <div className="text-xs text-gray-500">
+      <div className="text-xs text-gray-500 dark:text-gray-400">
         <span className="font-medium">Total harta:</span>{' '}
-        <span className="font-semibold text-gray-700">{formatIDR(result.estate)}</span>
+        <span className="font-semibold text-gray-700 dark:text-gray-200">{formatIDR(result.estate)}</span>
       </div>
 
-      {/* Banner penyesuaian */}
       {adjustment === 'aul' && (
-        <div className="flex items-start gap-2 p-2 bg-orange-50 border border-orange-200 rounded-lg text-xs text-orange-700">
+        <div className="flex items-start gap-2 p-2 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg text-xs text-orange-700 dark:text-orange-300">
           <span className="text-base leading-none mt-0.5">⚠️</span>
           <div>
             <span className="font-semibold">ʿAul:</span> Total bagian furudh melebihi harta.
@@ -43,7 +40,7 @@ export function ScenarioSummary({ result }: Props) {
       )}
 
       {adjustment === 'radd' && (
-        <div className="flex items-start gap-2 p-2 bg-purple-50 border border-purple-200 rounded-lg text-xs text-purple-700">
+        <div className="flex items-start gap-2 p-2 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg text-xs text-purple-700 dark:text-purple-300">
           <span className="text-base leading-none mt-0.5">ℹ️</span>
           <div>
             <span className="font-semibold">Radd:</span> Tidak ada ashabah dan total furudh
@@ -52,9 +49,8 @@ export function ScenarioSummary({ result }: Props) {
         </div>
       )}
 
-      {/* Peringatan */}
       {warnings.map((w, i) => (
-        <div key={i} className="flex items-start gap-2 p-2 bg-yellow-50 border border-yellow-200 rounded-lg text-xs text-yellow-800">
+        <div key={i} className="flex items-start gap-2 p-2 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg text-xs text-yellow-800 dark:text-yellow-300">
           <span className="text-base leading-none mt-0.5">⚠️</span>
           <span>{w}</span>
         </div>
